@@ -78,6 +78,7 @@ Example 5:
 arr = [ 1 , 2 ] , n = 2
 
 In this case, your function should return -1. */
+
 int find_pivot(int *arr, int n)
 {
     int sum;

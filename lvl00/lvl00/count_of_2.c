@@ -6,7 +6,7 @@
 /*   By: vokrut <vokrut@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 12:01:12 by vokrut            #+#    #+#             */
-/*   Updated: 2019/09/03 08:23:02 by vokrut           ###   ########.fr       */
+/*   Updated: 2019/09/03 08:29:00 by vokrut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int			count_of_2(int n)
 {
 	int		i;
 	int		count;
-
+	if (n <= 1)
+		return (0);
 	i = 2;
 	count = 0;
 	while (i <= n)

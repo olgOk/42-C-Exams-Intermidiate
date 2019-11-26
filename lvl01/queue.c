@@ -6,7 +6,7 @@
 /*   By: vokrut <vokrut@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 20:56:57 by vokrut            #+#    #+#             */
-/*   Updated: 2019/08/19 11:48:13 by vokrut           ###   ########.fr       */
+/*   Updated: 2019/08/19 17:26:30 by vokrut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,22 @@ These functions must be declared as follows:
     
 #include <stdlib.h>
 
-struct      s_node {
-    void    *content;
-    struct  s_node *next;
+struct              s_node {
+    void            *content;
+    struct s_node   *next;
 };
 
-struct      s_queue {
-    struct  s_node *first;
-    struct  s_node *last;
+struct                  s_queue 
+{
+    struct  s_node      *first;
+    struct  s_node      *last;
 };
 
 struct s_queue *init(void)
 {
     struct s_queue  *queue;
 
-    queue = malloc(sizeof(struct s_queue));
+    queue = (struct s_queue *)malloc(sizeof(struct s_queue));
     queue->first = NULL;
     queue->last = NULL;
     return (queue);
@@ -84,33 +85,40 @@ struct s_queue *init(void)
 
 void enqueue(struct s_queue *queue, void *content)
 {
-    struct s_node *last;
+    struct s_node   *new;
 
-    last = malloc(sizeof(struct s_node));
-    last->content = content;
-    last->next = NULL;
-    if (!queue->first)
-        queue->first = last;
-    if (queue->last)
-        queue->last->next = last;
-    queue->last = last;
+    if (!queue)
+        return ;
+    new = (struct s_node *)malloc(sizeof(struct s_node));
+    new->content = content;
+    new->next = NULL;
+    if (!queue->last)
+    {
+        queue->last = new;
+        queue->first = new;
+        return ;
+    }
+    queue->last->next = new;
+    queue->last = new;
+
 }
 
 void *dequeue(struct s_queue *queue)
 {
-    void    *content;
-    
+    void    *tmp;
+
     if (!queue || !queue->first)
         return (NULL);
-    content = queue->first->content;
+    tmp = queue->first->content;
     queue->first = queue->first->next;
-
-    return (content);
+    if (!queue->first)
+        queue->last = NULL;
+    return (tmp);
 }
 
 void *peek(struct s_queue *queue)
 {
-    if (!queue->first)
+    if (!queue || !queue->first)
         return (NULL);
     return (queue->first->content);
 }
@@ -123,30 +131,57 @@ int isEmpty(struct s_queue *queue)
     
 }
 
-/*
+
+/*For testing. Remove before submiting*/
 #include <stdio.h>
-int main(void)
+void    print_queue(struct s_queue *queue)
 {
-    struct s_queue  *queue = init();
-    char            *content[][1] = {
-      "Eins",
-      "Zwei",
-      "Drei",
-      "Vier",
-      "Funf"
-    };
-    for (int i = 0; i < 5; i += 1)
+    struct s_node *tmp;
+    if (!queue)
     {
-        enqueue(queue, *content[i]);
-        printf("Content : %s\n", peek(queue));
-        printf("Empty   : %s\n", (isEmpty(queue) ? "yes" : "no"));
+        printf("Queue doesn't exist\n");
+        return ;
     }
-    for (int i = 5; i > 0; i -= 1)
+    tmp = queue->first;
+    while (tmp)
     {
-        dequeue(queue);
-        printf("Content : %s\n", peek(queue));
-        printf("Empty   : %s\n", (isEmpty(queue) ? "yes" : "no"));
+        printf("[%s]->", (char *)tmp->content);
+        tmp = tmp->next;
     }
-    return (0);
+    printf("NULL\n");
 }
-*/
+int		main()
+{
+	struct s_queue		*queue;
+	void				*content;
+	queue = NULL;
+	
+	printf("isEmpty = %d\n", isEmpty(queue));
+    print_queue(queue);
+	printf("init\n");
+	queue = init();
+	printf("push (1)\n");
+	enqueue(queue, "1");
+	printf("isEmpty = %d peek = %s\n", isEmpty(queue), (char *)peek(queue));
+    print_queue(queue);
+	printf("push (2)\n");
+	enqueue(queue, "2");
+	printf("isEmpty = %d peek = %s\n", isEmpty(queue), (char *)peek(queue));
+    print_queue(queue);
+	printf("push (3)\n");
+	enqueue(queue, "3");
+	printf("isEmpty = %d peek = %s\n", isEmpty(queue), (char *)peek(queue));
+    print_queue(queue);
+	printf("\npop\n");
+	content = dequeue(queue);
+	printf("isEmpty = %d peek = %s pop = %s\n", isEmpty(queue), (char *)peek(queue), (char *)content);
+    print_queue(queue);
+	printf("pop\n");
+	content = dequeue(queue);
+	printf("isEmpty = %d peek = %s pop = %s\n", isEmpty(queue), (char *)peek(queue), (char *)content);
+    print_queue(queue);
+	printf("pop\n");
+	content = dequeue(queue);
+	printf("isEmpty = %d peek = %s pop = %s\n", isEmpty(queue), (char *)peek(queue), (char *)content);
+    print_queue(queue);
+}

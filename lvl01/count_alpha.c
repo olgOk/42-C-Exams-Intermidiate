@@ -6,7 +6,7 @@
 /*   By: vokrut <vokrut@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 20:16:07 by vokrut            #+#    #+#             */
-/*   Updated: 2019/08/19 11:47:03 by vokrut           ###   ########.fr       */
+/*   Updated: 2019/09/03 08:35:39 by vokrut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void count_alpha(char *str)
         }
         i++;
     }
-
 }
 
 int main(int argc, char **av)
@@ -101,4 +100,5 @@ int main(int argc, char **av)
         count_alpha(str);
     }
     printf("\n");
+    return (0);
 }

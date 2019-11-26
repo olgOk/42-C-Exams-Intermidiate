@@ -6,7 +6,7 @@
 /*   By: vokrut <vokrut@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 19:49:14 by vokrut            #+#    #+#             */
-/*   Updated: 2019/08/19 11:46:24 by vokrut           ###   ########.fr       */
+/*   Updated: 2019/08/19 14:18:14 by vokrut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,27 +73,27 @@ struct          s_stack {
 struct s_stack *init(void)
 {
 	struct s_stack	*stack;
-​
+	
 	stack = (struct s_stack *)malloc(sizeof(struct s_stack));
 	stack->top = NULL;
 	return (stack);
 }
-​
+
 void	*pop(struct s_stack *stack)
 {
 	void	*tmp;
-​
+
 	if (!stack || !stack->top)
 		return (NULL);
 	tmp = stack->top->content;
 	stack->top = stack->top->next;
 	return (tmp);
 }
-​
+
 void push(struct s_stack *stack, void *content)
 {
 	struct s_node *new;
-​
+
 	if (!stack)
 		return ;
 	new = (struct s_node *)malloc(sizeof(struct s_node));
@@ -101,14 +101,14 @@ void push(struct s_stack *stack, void *content)
 	new->next = stack->top;
 	stack->top = new;
 }
-​
+
 void *peek(struct s_stack *stack)
 {
 	if (!stack || !stack->top)
 		return (NULL);
 	return (stack->top->content);
 }
-​
+
 int isEmpty(struct s_stack *stack)
 {
 	if (!stack || !stack->top)

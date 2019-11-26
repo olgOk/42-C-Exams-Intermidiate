@@ -6,7 +6,7 @@
 /*   By: vokrut <vokrut@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 12:10:27 by vokrut            #+#    #+#             */
-/*   Updated: 2019/08/19 11:47:47 by vokrut           ###   ########.fr       */
+/*   Updated: 2019/08/19 17:43:52 by vokrut           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ EXAMPLE:
 
 The Input Tree :
 
-	   94
+	        94
            / \
           /   \
          34   52
-        / \	\
+        / \	    \
        /   \	 \
       1    99	 11
 		 /
 		/
-	       13
+	    13
 Output : 3 */
 
 struct      s_node {
@@ -56,18 +56,27 @@ struct      s_node {
 	struct  s_node **nodes;
 };
 
+void    calculate_height(struct s_node *root, int *max_height, int index_height)
+{
+    int i = 0;
+
+    if (index_height > *max_height)
+        *max_height = index_height;
+    if (!root->nodes)
+        return ;
+    while (root->nodes[i])
+    {
+        calculate_height(root->nodes[i], max_height, index_height + 1);
+        ++i;
+    }
+}
+
 int height_tree(struct s_node *root)
 {
-    int max;
-    int h;
-    int i;
+    int height = 0;
 
-    max = 0;
-    h = 0;
-    if(!root)
+    if (!root)
         return (-1);
-    for (i = 0; root->nodes[i]; i++)
-        if ((max = (height_tree(root->nodes[i] + 1)) > h))
-            h = max;
-    return (h);
+    calculate_height(root, &height, 0);
+    return (height);
 }

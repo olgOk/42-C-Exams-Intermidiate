@@ -10,24 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int     count_of_2(int n)
+int			find_twos(int i)
 {
-    int k;
-    int count;
+	int		count;
 
-    if (n <= 1)
-        return (0);
-    count = 0;
-    k = 2;
-    while (k <= n)
-    {
-        if (k / 10 == 2)
-            count++;
-        if (k % 10 == 2)
-            count++;
-        k++;
-    }
-    return (count);
+	count = 0;
+	while (i > 9)
+	{
+		if (i % 10 == 2)
+			++count;
+		i = i / 10;
+	}
+	if (i == 2)
+		++count;
+	return (count);
+}
+
+int			count_of_2(int n)
+{
+	int		i;
+	int		count;
+
+	i = 2;
+	count = 0;
+	while (i <= n)
+	{
+		count += find_twos(i);
+		++i;
+	}
+	return (count);
 }
 
 

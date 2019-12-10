@@ -27,6 +27,7 @@ int find_pivot(int *arr, int n)
         if (left_sum == (sum - left_sum - arr[i]))
             return (i);
         left_sum += arr[i];
+        ++i;
     }
     return (-1);
 }

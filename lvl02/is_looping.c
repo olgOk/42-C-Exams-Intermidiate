@@ -77,3 +77,25 @@ Example 4:
 In this case, it should return 1 (the loop begins at node 14).
 
 The list may not be modified.*/
+
+struct               s_node
+{
+       int           value;
+	struct s_node *next;
+};
+
+
+int	              is_looping(struct s_node *node)
+{
+       struct s_node *slow_move = node;
+       struct s_node *fast_move = node;
+
+       while(slow_move && fast_move && fast_move->next)
+       {
+              slow_move = slow_move->next;
+              fast_move = fast_move->next->next;
+              if (slow_move == fast_move)
+                     return (1);
+       }
+       return (0);
+}

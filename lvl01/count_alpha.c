@@ -78,7 +78,7 @@ void count_alpha(char *str)
     i = 0;
     while(str[i])
     {
-        if (str[i] >= 'a' && str[i] <= 'z' && alpha[(int)str[i]] == 0)
+        if (str[i] >= 'a' && str[i] <= 'z' && !alpha[(int)str[i]])
         {
             alpha[(int)str[i]] = 1;
             if (!flag)

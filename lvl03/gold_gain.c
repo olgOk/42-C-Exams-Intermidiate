@@ -123,6 +123,9 @@ int	gold_gain(int **mine, int n)
     return (score);
 }
 
+
+
+//testing, remove before submiting
 int **convert_mine(int n, int mine[4][4])
 {
     int **true_mine;
